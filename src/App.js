@@ -6,7 +6,7 @@ import { Table } from './components/Table';
 function App() {
   return (
     <div>
-      <h1 className="text-center">Хрестики нолики</h1>
+      <h1 className="text-center">Tic tac toe</h1>
       <div className='row'>
         <div className='col-3'>
 

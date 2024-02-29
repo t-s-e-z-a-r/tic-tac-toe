@@ -11,81 +11,47 @@ export function Table(){
     ]
     const [value, setValue] = useState(true)
     const [matrix, setMatrix] = useState(baseMatrix)
-    const [trecker, setTrecker] = useState(false)
-    const AI = new Comp(matrix, true)
-
-    // const checkAll = (y, x) => {
-    //     for (let i=0; i<baseMatrix[0].length; i++){
-    //         if (matrix[i][x]!==value){
-    //             break
-    //         }
-    //         if (i === baseMatrix[0].length - 1 && matrix[i][x]===value){
-    //             console.log("Here");
-    //             setTrecker(true)
-    //         }
-    //     }   
-    //     for (let i=0; i<baseMatrix[0].length; i++){
-    //         if (matrix[y][i]!==value){
-    //             break
-    //         }
-    //         if (i === baseMatrix[0].length - 1 && matrix[y][i]===value){
-    //             console.log("Here");
-    //             setTrecker(true)
-    //         }
-    //     }   
-    //     for (let i=0; i<baseMatrix[0].length; i++){
-    //         if (matrix[i][i]!==value){
-    //             break
-    //         }
-    //         if (i === baseMatrix[0].length - 1 && matrix[i][i]===value){
-    //             console.log("Here");
-    //             setTrecker(true)
-    //         }
-    //     }   
-    //     for (let i=0; i<baseMatrix[0].length; i++){
-    //         if (matrix[i][baseMatrix.length-i-1]!==value){
-    //             break
-    //         }
-    //         if (i === baseMatrix[0].length - 1 && matrix[i][baseMatrix.length-i-1]===value){
-    //             console.log("Here");
-    //             setTrecker(true)
-    //         }
-    //     }   
-    // }
-    
-    useEffect(()=>{
-        console.log(matrix)
-    },[matrix])
+    const [winner, setWinner] = useState(false)
+    const AI = new Comp(matrix, false)
 
     const handleClick = (y, x) =>{
-        if (!trecker){
-            const updatedMatrix = [...matrix]
-            if ( updatedMatrix[y][x]=== 0){
-                updatedMatrix[y][x] = value;
-                setMatrix(updatedMatrix)
-                // checkAll(y, x);
-                setValue(!value)
-            }
+        const updatedMatrix = [...matrix]
+        if ( updatedMatrix[y][x]=== 0){
+            updatedMatrix[y][x] = value;
+            setMatrix(updatedMatrix)
+            setValue(!value)
+            return true
         }
+        return false
     }    
+    const handleRefresh = () =>{
+        window.location.reload();
+    }
+
     return(
+        <>
+            {winner && (<div id='winner'>
+                <h2>{winner} is the winner</h2>
+                <button onClick={() => handleRefresh()}>Play again</button>
+            </div>)}
         <div className="container" id='table'> 
             <div className="row">
-                <Cell y={0} x = {0} matrix={matrix} handleClick={handleClick} ai = {AI}/>
-                <Cell y={0} x = {1} matrix={matrix} handleClick={handleClick} ai = {AI}/>
-                <Cell y={0} x = {2} matrix={matrix} handleClick={handleClick} ai = {AI}/>
+                <Cell y={0} x = {0} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
+                <Cell y={0} x = {1} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
+                <Cell y={0} x = {2} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
             </div>
             <div className="row">
-                <Cell y={1} x = {0} matrix={matrix} handleClick={handleClick} ai = {AI}/>
-                <Cell y={1} x = {1} matrix={matrix} handleClick={handleClick} ai = {AI}/>
-                <Cell y={1} x = {2} matrix={matrix} handleClick={handleClick} ai = {AI}/>
+                <Cell y={1} x = {0} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
+                <Cell y={1} x = {1} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
+                <Cell y={1} x = {2} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
             </div>
             <div className="row">
-                <Cell y={2} x = {0} matrix={matrix} handleClick={handleClick} ai = {AI}/>
-                <Cell y={2} x = {1} matrix={matrix} handleClick={handleClick} ai = {AI}/>
-                <Cell y={2} x = {2} matrix={matrix} handleClick={handleClick} ai = {AI}/>
+                <Cell y={2} x = {0} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
+                <Cell y={2} x = {1} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
+                <Cell y={2} x = {2} matrix={matrix} handleClick={handleClick} ai = {AI} setWinner={setWinner}/>
 
             </div>
         </div>
+        </>
     )
 }
